@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/29105433/README.md)
 # Creato Creative Agency — Website
 
 A single-page website for **Creato Creative Agency**, a graphic design studio based in Tagum City, Davao del Norte, Philippines. Built with plain HTML, CSS, and vanilla JavaScript — no frameworks, no dependencies beyond Google Fonts.
