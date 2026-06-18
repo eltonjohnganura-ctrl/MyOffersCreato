@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creato Creative Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&family=Montserrat:wght@100;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; overflow: hidden; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: #0a0a0a;
+      background: radial-gradient(ellipse at top left, #b3ffb3 0%, #e6ffe6 30%, #ffffff 65%);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex; justify-content: flex-end; align-items: center;
+      padding: 24px 60px; gap: 48px; flex-shrink: 0; position: relative; z-index: 10;
+    }
+    nav a {
+      text-decoration: none; color: #0a0a0a;
+      font-family: 'Montserrat', sans-serif; font-size: 1rem;
+      font-weight: 100; letter-spacing: 0.02em; cursor: pointer; transition: opacity 0.2s;
+    }
+    nav a:hover { opacity: 0.55; }
+    nav a.active { font-weight: 700; }
+
+    /* ── VIEWPORT & STRIP ── */
+    /* 8 pages: 0-Home 1-About 2-Works 3-Services 4-Logo Pricing 5-Printables 6-Digital Design 7-Brief Form */
+    .viewport { flex: 1; overflow: hidden; position: relative; }
+    .pages {
+      display: flex; width: 800%; height: 100%;
+      transition: transform 0.55s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    .page {
+      width: calc(100% / 8); height: 100%; flex-shrink: 0;
+      display: flex; flex-direction: column;
+      padding: 40px 60px 0; position: relative; overflow-y: auto;
+    }
+
+    /* ── BACK BUTTON ── */
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: none; border: none; cursor: pointer;
+      font-family: 'Montserrat', sans-serif; font-size: 0.8rem;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #0a0a0a; margin-bottom: 24px; opacity: 0.6;
+      transition: opacity 0.2s; flex-shrink: 0;
+    }
+    .back-btn:hover { opacity: 1; }
+    .back-btn svg { width: 14px; height: 14px; }
+
+    /* ── EYEBROW / TITLE ── */
+    .page-eyebrow {
+      font-family: 'Montserrat', sans-serif; font-size: 0.7rem;
+      font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      color: #00b825; margin-bottom: 10px;
+    }
+    .page-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1.4rem, 2.4vw, 2.2rem);
+      font-weight: 500; line-height: 1.2; margin-bottom: 28px;
+    }
+
+    /* ── GREEN PRICE ── */
+    .price-green { color: #00b825; font-weight: 700; }
+
+    /* ════════ HOME ════════ */
+    .hero-headline {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2.4rem, 4.8vw, 4.6rem);
+      font-weight: 500; line-height: 1.1; letter-spacing: -0.01em;
+      max-width: 680px; margin-bottom: 44px; margin-top: auto;
+    }
+    .hero-subline {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1.3rem, 2.4vw, 2.2rem);
+      font-weight: 400; display: flex; align-items: center; gap: 12px; margin-bottom: auto;
+    }
+    .hero-subline .accent { color: #00e633; }
+    .cta-block {
+      position: absolute; bottom: 52px; right: 60px;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .cta-label { font-size: 0.88rem; font-weight: 400; }
+    .cta-btn {
+      background: #00e633; color: #0a0a0a;
+      font-family: 'Montserrat', sans-serif; font-size: 0.85rem;
+      font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      border: none; border-radius: 999px; padding: 16px 34px; cursor: pointer;
+      transition: background 0.2s, transform 0.15s; text-decoration: none; display: inline-block;
+    }
+    .cta-btn:hover { background: #00cc2a; transform: scale(1.04); }
+    .cta-btn:active { transform: scale(0.98); }
+
+    /* ════════ ABOUT ════════ */
+    .about-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1rem, 1.7vw, 1.3rem);
+      font-weight: 400; line-height: 1.8; max-width: 720px;
+    }
+    /* Stats row */
+    .stats-row {
+      display: flex; gap: 48px; margin: 52px 0 40px; flex-wrap: wrap;
+    }
+    .stat-item { display: flex; flex-direction: column; gap: 6px; }
+    .stat-number {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 500; color: #00b825; line-height: 1;
+    }
+    .stat-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem; font-weight: 400; opacity: 0.65; letter-spacing: 0.04em;
+    }
+    .stat-divider { width: 1px; background: rgba(0,200,50,0.25); align-self: stretch; }
+    .about-tagline {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1rem, 1.7vw, 1.3rem);
+      font-weight: 400; line-height: 1.8;
+      color: #0a0a0a; max-width: 620px;
+      border-top: 2px solid rgba(0,230,51,0.3);
+      padding-top: 32px; margin-bottom: 48px;
+    }
+
+    /* ════════ SHARED CARDS ════════ */
+    .card-grid { display: grid; gap: 16px; padding-bottom: 28px; }
+    .card-grid-3 { grid-template-columns: repeat(3,1fr); }
+    .card-grid-4 { grid-template-columns: repeat(4,1fr); }
+
+    .card {
+      background: #fff; border: 1.5px solid rgba(0,230,51,0.28);
+      border-radius: 18px; padding: 26px 18px 20px;
+      display: flex; flex-direction: column; align-items: center; gap: 9px;
+      box-shadow: 0 3px 18px rgba(0,230,51,0.07);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 10px 28px rgba(0,230,51,0.16); }
+    .card-icon {
+      width: 44px; height: 44px; background: rgba(0,230,51,0.1);
+      border-radius: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .card-icon svg { width: 22px; height: 22px; stroke: #00a820; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .card-title { font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 500; text-align: center; line-height: 1.3; }
+    .card-divider { width: 34px; height: 2px; background: #00e633; border-radius: 2px; flex-shrink: 0; }
+    .card-desc { font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 400; text-align: center; opacity: 0.55; line-height: 1.6; flex: 1; }
+    .detail-btn {
+      background: transparent; color: #0a0a0a;
+      font-family: 'Montserrat', sans-serif; font-size: 0.7rem;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      border: 2px solid #00e633; border-radius: 999px; padding: 8px 20px; cursor: pointer;
+      margin-top: 4px; transition: background 0.2s, transform 0.15s;
+    }
+    .detail-btn:hover { background: #00e633; transform: scale(1.04); }
+    .coming-soon {
+      font-family: 'Montserrat', sans-serif; font-size: 0.66rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: #aaa;
+      border: 1.5px dashed #ccc; border-radius: 999px; padding: 6px 16px; margin-top: 4px;
+    }
+
+    /* ════════ LOGO PRICING TIERS ════════ */
+    .tier-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; padding-bottom: 28px; }
+    .tier-card {
+      background: #fff; border: 1.5px solid rgba(0,230,51,0.28);
+      border-radius: 18px; padding: 26px 22px 22px;
+      display: flex; flex-direction: column; gap: 6px;
+      box-shadow: 0 3px 18px rgba(0,230,51,0.07);
+    }
+    .tier-badge {
+      font-family: 'Montserrat', sans-serif; font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      background: #00e633; color: #0a0a0a; border-radius: 999px;
+      padding: 4px 12px; display: inline-block; margin-bottom: 4px; align-self: flex-start;
+    }
+    .tier-name { font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 500; }
+    .tier-price { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; font-weight: 700; color: #00b825; margin-bottom: 10px; }
+    .tier-price span { font-size: 0.82rem; font-weight: 400; color: #0a0a0a; opacity: 0.55; }
+    .tier-list { list-style: none; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+    .tier-list li {
+      font-family: 'Montserrat', sans-serif; font-size: 0.73rem; font-weight: 400;
+      line-height: 1.4; display: flex; gap: 8px; align-items: flex-start;
+    }
+    .tier-list li::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: #00e633; flex-shrink: 0; margin-top: 4px;
+    }
+    .select-btn {
+      margin-top: 16px; background: #00e633; color: #0a0a0a;
+      font-family: 'Montserrat', sans-serif; font-size: 0.76rem;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      border: none; border-radius: 999px; padding: 12px 24px; cursor: pointer;
+      transition: background 0.2s, transform 0.15s; align-self: flex-start;
+    }
+    .select-btn:hover { background: #00cc2a; transform: scale(1.03); }
+
+    /* ════════ PRINTABLES GRID ════════ */
+    .print-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 14px; padding-bottom: 28px; }
+    .print-card {
+      background: #fff; border: 1.5px solid rgba(0,230,51,0.28);
+      border-radius: 16px; padding: 22px 14px 18px;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      box-shadow: 0 3px 16px rgba(0,230,51,0.07);
+    }
+    .print-card-icon { width: 38px; height: 38px; background: rgba(0,230,51,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+    .print-card-icon svg { width: 20px; height: 20px; stroke: #00a820; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .print-card-title { font-family: 'Poppins', sans-serif; font-size: 0.82rem; font-weight: 500; text-align: center; }
+    .print-card-divider { width: 26px; height: 2px; background: #00e633; border-radius: 2px; }
+    .print-price-list { list-style: none; width: 100%; display: flex; flex-direction: column; gap: 5px; }
+    .print-price-list li { font-family: 'Montserrat', sans-serif; font-size: 0.69rem; font-weight: 400; display: flex; justify-content: space-between; gap: 4px; line-height: 1.4; }
+    .p-label { opacity: 0.65; }
+    .p-val { color: #00b825; font-weight: 700; white-space: nowrap; }
+
+    /* ════════ DIGITAL DESIGN PRICING ════════ */
+    .digital-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; padding-bottom: 28px; }
+    .digital-card {
+      background: #fff; border: 1.5px solid rgba(0,230,51,0.28);
+      border-radius: 18px; padding: 28px 22px 24px;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      box-shadow: 0 3px 18px rgba(0,230,51,0.07);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .digital-card:hover { transform: translateY(-5px); box-shadow: 0 10px 28px rgba(0,230,51,0.16); }
+    .digital-card-icon { width: 46px; height: 46px; background: rgba(0,230,51,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+    .digital-card-icon svg { width: 24px; height: 24px; stroke: #00a820; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .digital-card-title { font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 500; }
+    .digital-card-divider { width: 36px; height: 2px; background: #00e633; border-radius: 2px; }
+    .digital-price-list { list-style: none; width: 100%; display: flex; flex-direction: column; gap: 8px; }
+    .digital-price-list li { font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 400; display: flex; justify-content: space-between; gap: 8px; }
+    .digital-price-list .d-label { opacity: 0.65; }
+    .digital-price-list .d-val { color: #00b825; font-weight: 700; }
+
+    /* ════════ BRIEF FORM ════════ */
+    .form-wrap {
+      max-width: 580px; width: 100%;
+      display: flex; flex-direction: column; gap: 16px; padding-bottom: 48px;
+    }
+    .form-wrap h3 { font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 500; opacity: 0.6; margin-bottom: 4px; }
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-field label {
+      font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.65;
+    }
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+      font-family: 'Montserrat', sans-serif; font-size: 0.88rem; font-weight: 400;
+      border: 1.5px solid rgba(0,200,50,0.3); border-radius: 10px;
+      padding: 12px 14px; background: #fff; color: #0a0a0a;
+      outline: none; transition: border-color 0.2s;
+      appearance: none;
+    }
+    .form-field input:focus,
+    .form-field textarea:focus,
+    .form-field select:focus { border-color: #00e633; }
+    .form-field textarea { resize: vertical; min-height: 80px; }
+    /* Color swatches */
+    .color-swatches { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+    .swatch {
+      width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+      border: 3px solid transparent; transition: border-color 0.15s, transform 0.15s;
+    }
+    .swatch:hover { transform: scale(1.15); }
+    .swatch.selected { border-color: #0a0a0a; }
+    .swatch-custom {
+      width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+      border: 2px dashed #aaa; display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; background: #f9f9f9; transition: border-color 0.2s;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .swatch-custom input[type="color"] {
+      opacity: 0; position: absolute; width: 32px; height: 32px;
+      cursor: pointer; border: none; padding: 0;
+    }
+    .color-selected-label {
+      font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 400;
+      opacity: 0.6; margin-top: 4px;
+    }
+    .submit-btn {
+      background: #00e633; color: #0a0a0a;
+      font-family: 'Montserrat', sans-serif; font-size: 0.85rem;
+      font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      border: none; border-radius: 999px; padding: 15px 36px; cursor: pointer;
+      align-self: flex-start; margin-top: 6px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .submit-btn:hover { background: #00cc2a; transform: scale(1.04); }
+    .form-notice {
+      font-family: 'Montserrat', sans-serif; font-size: 0.7rem;
+      font-weight: 400; opacity: 0.5; margin-top: -6px;
+    }
+    .form-success {
+      display: none; background: rgba(0,230,51,0.1); border: 1.5px solid #00e633;
+      border-radius: 12px; padding: 18px 20px;
+      font-family: 'Montserrat', sans-serif; font-size: 0.88rem; font-weight: 400; line-height: 1.6;
+    }
+
+    /* ════════ FOOTER ════════ */
+    footer {
+      background: #00e633; color: #0a0a0a;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+      padding: 14px 60px; flex-shrink: 0; z-index: 10;
+    }
+    .footer-copy { font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.04em; opacity: 0.75; }
+    .footer-links { display: flex; gap: 24px; align-items: center; }
+    .footer-link {
+      text-decoration: none; color: #0a0a0a;
+      font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.06em; display: flex; align-items: center; gap: 6px; opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .footer-link:hover { opacity: 1; }
+    .footer-link svg { width: 14px; height: 14px; }
+
+    /* ════════ RESPONSIVE ════════ */
+    @media (max-width: 1000px) {
+      .tier-grid, .digital-grid { grid-template-columns: 1fr 1fr; }
+      .print-grid { grid-template-columns: repeat(3,1fr); }
+      .card-grid-4 { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 760px) {
+      nav { padding: 16px 24px; gap: 20px; flex-wrap: wrap; justify-content: center; }
+      .page { padding: 24px 24px 0; }
+      footer { padding: 12px 24px; }
+      .tier-grid, .digital-grid { grid-template-columns: 1fr; }
+      .print-grid { grid-template-columns: repeat(2,1fr); }
+      .card-grid-3, .card-grid-4 { grid-template-columns: repeat(2,1fr); }
+      .cta-block { right: 24px; bottom: 28px; }
+      .stats-row { gap: 28px; }
+    }
+    @media (max-width: 480px) {
+      .card-grid-3, .card-grid-4, .print-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a data-page="0" class="active">Home</a>
+    <a data-page="1">About Us</a>
+    <a data-page="2">Our Works</a>
+    <a data-page="3">Services</a>
+  </nav>
+
+  <div class="viewport">
+    <div class="pages" id="pages">
+
+      <!-- ══ PAGE 0 — HOME ══ -->
+      <div class="page">
+        <h1 class="hero-headline">
+          Making Brands &amp;<br />
+          Businesses to Stand Out<br />
+          From their competitors
+        </h1>
+        <p class="hero-subline">
+          Creating New <span class="accent">Heights</span>
+        </p>
+        <div class="cta-block">
+          <span class="cta-label">Interested?</span>
+          <a class="cta-btn" href="https://www.facebook.com/profile.php?id=100082854266737" target="_blank" rel="noopener">Contact Us</a>
+        </div>
+      </div>
+
+      <!-- ══ PAGE 1 — ABOUT US ══ -->
+      <div class="page">
+        <div style="padding-top: 20px;">
+          <p class="page-eyebrow">About Us</p>
+          <p class="about-text">
+            We are Creato Graphic Design Agency based in Tagum City, Davao del Norte, Philippines. Established in 2026 as an official Digital Agency that provides graphic needs of a variety of Brands and Businesses. Our goal is to provide Quality and affordable outputs and meet the expectation you need. We Wish to work with you!
+          </p>
+
+          <!-- STATS -->
+          <div class="stats-row">
+            <div class="stat-item">
+              <div class="stat-number">80+</div>
+              <div class="stat-label">Worked With Businesses</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <div class="stat-number">90+</div>
+              <div class="stat-label">Successful Projects</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <div class="stat-number">132</div>
+              <div class="stat-label">Total Clients</div>
+            </div>
+          </div>
+
+          <!-- TAGLINE -->
+          <p class="about-tagline">
+            We Help Brands &amp; Businesses to Grow and we work with passion.
+          </p>
+        </div>
+      </div>
+
+      <!-- ══ PAGE 2 — OUR WORKS ══ -->
+      <div class="page">
+        <p class="page-eyebrow">Our Works</p>
+        <h2 class="page-title">Projects we're proud of</h2>
+        <div class="card-grid card-grid-3">
+          <div class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+            <div class="card-title">Brand Identity</div><div class="card-divider"></div>
+            <div class="card-desc">Complete visual identity system</div>
+          </div>
+          <div class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg></div>
+            <div class="card-title">Print Collateral</div><div class="card-divider"></div>
+            <div class="card-desc">Flyers, posters &amp; more</div>
+          </div>
+          <div class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+            <div class="card-title">Social Media</div><div class="card-divider"></div>
+            <div class="card-desc">Content &amp; digital assets</div>
+          </div>
+          <div class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 20l-7-7 9.5-9.5a3.536 3.536 0 0 1 5 5L12 20z"/><line x1="5" y1="19" x2="9" y2="15"/></svg></div>
+            <div class="card-title">Logo Design</div><div class="card-divider"></div>
+            <div class="card-desc">Timeless marks &amp; wordmarks</div>
+          </div>
+          <div class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+            <div class="card-title">Packaging</div><div class="card-divider"></div>
+            <div class="card-desc">Product &amp; retail packaging</div>
+          </div>
+          <div class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="22" x2="16" y2="22"/><line x1="12" y1="18" x2="12" y2="22"/></svg></div>
+            <div class="card-title">Web Design</div><div class="card-divider"></div>
+            <div class="card-desc">Modern &amp; clean interfaces</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PAGE 3 — SERVICES ══ -->
+      <div class="page">
+        <p class="page-eyebrow">Services</p>
+        <h2 class="page-title">What we offer</h2>
+        <div class="card-grid card-grid-4">
+          <div class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 20l-7-7 9.5-9.5a3.536 3.536 0 0 1 5 5L12 20z"/><line x1="5" y1="19" x2="9" y2="15"/></svg></div>
+            <div class="card-title">Logo Designing</div><div class="card-divider"></div>
+            <div class="card-desc">Distinctive marks &amp; wordmarks that define your brand.</div>
+            <button class="detail-btn" data-goto="4">See Details</button>
+          </div>
+          <div class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg></div>
+            <div class="card-title">Printables</div><div class="card-divider"></div>
+            <div class="card-desc">Menus, posters, packaging &amp; all print-ready material.</div>
+            <button class="detail-btn" data-goto="5">See Details</button>
+          </div>
+          <div class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+            <div class="card-title">Digital Design</div><div class="card-divider"></div>
+            <div class="card-desc">Social media graphics, ads &amp; web-ready content.</div>
+            <button class="detail-btn" data-goto="6">See Details</button>
+          </div>
+          <div class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+            <div class="card-title">Brand Identity</div><div class="card-divider"></div>
+            <div class="card-desc">Full identity system — colors, type, guidelines &amp; more.</div>
+            <span class="coming-soon">Coming Soon</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PAGE 4 — LOGO PRICING ══ -->
+      <div class="page">
+        <button class="back-btn" data-goto="3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Back to Services
+        </button>
+        <p class="page-eyebrow">Logo Designing</p>
+        <h2 class="page-title">Choose your package</h2>
+        <div class="tier-grid">
+
+          <!-- BASIC -->
+          <div class="tier-card">
+            <span class="tier-badge">Starter</span>
+            <div class="tier-name">Basic</div>
+            <div class="tier-price"><span>₱</span>4,000</div>
+            <ul class="tier-list">
+              <li>2–3 Draft Concept Designs</li>
+              <li>3 Rounds of Revisions</li>
+              <li>Brand Color Palette &amp; Typography</li>
+              <li>SVG, Illustrator File, High Quality PNG &amp; JPG Files</li>
+            </ul>
+            <button class="select-btn" data-plan="Basic — ₱4,000">Select</button>
+          </div>
+
+          <!-- STANDARD -->
+          <div class="tier-card" style="border-color:#00e633;box-shadow:0 6px 32px rgba(0,230,51,0.2);">
+            <span class="tier-badge">Most Popular</span>
+            <div class="tier-name">Standard</div>
+            <div class="tier-price"><span>₱</span>8,000</div>
+            <ul class="tier-list">
+              <li>2–3 Draft Concept Designs</li>
+              <li>5 Rounds of Revisions</li>
+              <li>Brand Color Palette &amp; Typography</li>
+              <li>Basic Branding &amp; Brand Identity</li>
+              <li>5 Free Social Media Kit Templates</li>
+              <li>SVG, Illustrator File, EPS, High Quality PNG &amp; JPG Files</li>
+            </ul>
+            <button class="select-btn" data-plan="Standard — ₱8,000">Select</button>
+          </div>
+
+          <!-- PREMIUM -->
+          <div class="tier-card">
+            <span class="tier-badge">Full Suite</span>
+            <div class="tier-name">Premium</div>
+            <div class="tier-price"><span>₱</span>12,000</div>
+            <ul class="tier-list">
+              <li>2–3 Draft Concept Designs</li>
+              <li>Unlimited Rounds of Revisions</li>
+              <li>Brand Color Palette &amp; Typography</li>
+              <li>Full Branding, Brand Identity &amp; Brand Guide</li>
+              <li>10 Free Social Media Kit Templates</li>
+              <li>SVG, Illustrator File, EPS, High Quality PNG &amp; JPG Files</li>
+            </ul>
+            <button class="select-btn" data-plan="Premium — ₱12,000">Select</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ══ PAGE 5 — PRINTABLES ══ -->
+      <div class="page">
+        <button class="back-btn" data-goto="3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Back to Services
+        </button>
+        <p class="page-eyebrow">Printables</p>
+        <h2 class="page-title">Pricing per item</h2>
+        <div class="print-grid">
+          <div class="print-card">
+            <div class="print-card-icon"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg></div>
+            <div class="print-card-title">Menu</div><div class="print-card-divider"></div>
+            <ul class="print-price-list">
+              <li><span class="p-label">1 page</span><span class="p-val">₱599</span></li>
+              <li><span class="p-label">4 pages</span><span class="p-val">₱1,200</span></li>
+              <li><span class="p-label">8 pages</span><span class="p-val">₱2,000</span></li>
+              <li><span class="p-label">12 pages</span><span class="p-val">₱2,500</span></li>
+            </ul>
+          </div>
+          <div class="print-card">
+            <div class="print-card-icon"><svg viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+            <div class="print-card-title">Packaging</div><div class="print-card-divider"></div>
+            <ul class="print-price-list">
+              <li><span class="p-label">Starting at</span><span class="p-val">₱899</span></li>
+              <li><span class="p-label">Up to</span><span class="p-val">₱2,000</span></li>
+            </ul>
+          </div>
+          <div class="print-card">
+            <div class="print-card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><line x1="12" y1="16" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></svg></div>
+            <div class="print-card-title">Signage</div><div class="print-card-divider"></div>
+            <ul class="print-price-list">
+              <li><span class="p-label">Per design</span><span class="p-val">₱599</span></li>
+            </ul>
+          </div>
+          <div class="print-card">
+            <div class="print-card-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/><line x1="9" y1="15" x2="12" y2="15"/></svg></div>
+            <div class="print-card-title">Poster</div><div class="print-card-divider"></div>
+            <ul class="print-price-list">
+              <li><span class="p-label">1 page</span><span class="p-val">₱500</span></li>
+              <li><span class="p-label">4 pages</span><span class="p-val">₱999</span></li>
+              <li><span class="p-label">8 pages</span><span class="p-val">₱1,800</span></li>
+              <li><span class="p-label">12 pages</span><span class="p-val">₱2,300</span></li>
+            </ul>
+          </div>
+          <div class="print-card">
+            <div class="print-card-icon"><svg viewBox="0 0 24 24"><path d="M2 7l5-4h3a2 2 0 0 0 4 0h3l5 4-3 3v11H5V10L2 7z" stroke="#00a820" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="print-card-title">T-Shirt</div><div class="print-card-divider"></div>
+            <ul class="print-price-list">
+              <li><span class="p-label">Sublimation</span><span class="p-val">₱1,000</span></li>
+              <li><span class="p-label">DTF</span><span class="p-val">₱899</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PAGE 6 — DIGITAL DESIGN ══ -->
+      <div class="page">
+        <button class="back-btn" data-goto="3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Back to Services
+        </button>
+        <p class="page-eyebrow">Digital Design</p>
+        <h2 class="page-title">Social, E-Commerce &amp; Ads</h2>
+        <div class="digital-grid">
+
+          <div class="digital-card">
+            <div class="digital-card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+            <div class="digital-card-title">Social Media</div>
+            <div class="digital-card-divider"></div>
+            <ul class="digital-price-list">
+              <li><span class="d-label">4 Posters</span><span class="d-val">₱1,200</span></li>
+              <li><span class="d-label">6 Posters</span><span class="d-val">₱1,600</span></li>
+              <li><span class="d-label">8 Posters</span><span class="d-val">₱1,800</span></li>
+            </ul>
+          </div>
+
+          <div class="digital-card">
+            <div class="digital-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg></div>
+            <div class="digital-card-title">E-Commerce</div>
+            <div class="digital-card-divider"></div>
+            <ul class="digital-price-list">
+              <li><span class="d-label">4 Posters</span><span class="d-val">₱1,200</span></li>
+              <li><span class="d-label">6 Posters</span><span class="d-val">₱1,600</span></li>
+              <li><span class="d-label">8 Posters</span><span class="d-val">₱1,800</span></li>
+            </ul>
+          </div>
+
+          <div class="digital-card">
+            <div class="digital-card-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <div class="digital-card-title">Advertisement</div>
+            <div class="digital-card-divider"></div>
+            <ul class="digital-price-list">
+              <li><span class="d-label">4 Posters</span><span class="d-val">₱1,200</span></li>
+              <li><span class="d-label">6 Posters</span><span class="d-val">₱1,600</span></li>
+              <li><span class="d-label">8 Posters</span><span class="d-val">₱1,800</span></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ══ PAGE 7 — BRIEF FORM ══ -->
+      <div class="page" id="brief-page">
+        <button class="back-btn" data-goto="4">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Back to Packages
+        </button>
+        <p class="page-eyebrow">Logo Designing</p>
+        <h2 class="page-title">Fill Up Your Brief</h2>
+        <p id="brief-plan-label" style="font-family:'Montserrat',sans-serif;font-size:0.8rem;font-weight:700;color:#00b825;margin-bottom:20px;letter-spacing:0.06em;text-transform:uppercase;"></p>
+
+        <div class="form-wrap" id="brief-form-wrap">
+          <div class="form-field">
+            <label>Name</label>
+            <input type="text" id="f-name" placeholder="Your full name" />
+          </div>
+          <div class="form-field">
+            <label>Gmail</label>
+            <input type="email" id="f-email" placeholder="yourname@gmail.com" />
+          </div>
+          <div class="form-field">
+            <label>Brand / Business Name</label>
+            <input type="text" id="f-brand" placeholder="e.g. Creato Agency" />
+          </div>
+          <div class="form-field">
+            <label>What's Your Brand / Business?</label>
+            <textarea id="f-biz" placeholder="Briefly describe what your brand or business does..."></textarea>
+          </div>
+          <div class="form-field">
+            <label>Preferences</label>
+            <input type="text" id="f-pref" placeholder="e.g. minimalist, modern, luxury" />
+          </div>
+          <div class="form-field">
+            <label>Select Preferred Color</label>
+            <div class="color-swatches" id="swatches">
+              <div class="swatch" style="background:#000000;" data-color="Black (#000000)"></div>
+              <div class="swatch" style="background:#FFFFFF;border:2px solid #ddd;" data-color="White (#FFFFFF)"></div>
+              <div class="swatch" style="background:#FF3B3B;" data-color="Red (#FF3B3B)"></div>
+              <div class="swatch" style="background:#FF8C00;" data-color="Orange (#FF8C00)"></div>
+              <div class="swatch" style="background:#FFD700;" data-color="Gold (#FFD700)"></div>
+              <div class="swatch" style="background:#00C853;" data-color="Green (#00C853)"></div>
+              <div class="swatch" style="background:#0057FF;" data-color="Blue (#0057FF)"></div>
+              <div class="swatch" style="background:#9C27B0;" data-color="Purple (#9C27B0)"></div>
+              <div class="swatch" style="background:#FF69B4;" data-color="Pink (#FF69B4)"></div>
+              <div class="swatch" style="background:#795548;" data-color="Brown (#795548)"></div>
+              <!-- Custom color picker -->
+              <div class="swatch-custom" title="Custom color" id="custom-swatch">
+                <span id="custom-swatch-icon" style="font-size:1rem;position:relative;z-index:1;">+</span>
+                <input type="color" id="custom-color-input" style="position:absolute;opacity:0;width:32px;height:32px;cursor:pointer;" />
+              </div>
+            </div>
+            <div class="color-selected-label" id="color-label">No color selected</div>
+          </div>
+
+          <p class="form-notice">By submitting, your brief will be sent to us via your Gmail.</p>
+          <button class="submit-btn" id="submit-brief">Submit Brief</button>
+          <div class="form-success" id="form-success">
+            ✅ <strong>Brief submitted!</strong> Your Gmail app will open with the brief pre-filled. Just hit Send — we'll get back to you soon!
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /pages -->
+  </div><!-- /viewport -->
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-copy">All Rights Reserved 2026 &nbsp;|&nbsp; Creato Creative Agency</span>
+    <div class="footer-links">
+      <a class="footer-link" href="mailto:creatographic@gmail.com">
+        <!-- Gmail icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        creatographic@gmail.com
+      </a>
+      <a class="footer-link" href="https://www.facebook.com/profile.php?id=100082854266737" target="_blank" rel="noopener">
+        <!-- Facebook icon -->
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        Creato
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    const pagesEl = document.getElementById('pages');
+    const navLinks = document.querySelectorAll('nav a');
+    const TOTAL = 8;
+    let current = 0;
+    let selectedPlan = '';
+    let selectedColor = '';
+
+    function goTo(idx) {
+      if (idx < 0 || idx >= TOTAL) return;
+      current = idx;
+      pagesEl.style.transform = `translateX(-${idx * (100 / TOTAL)}%)`;
+      navLinks.forEach(l => l.classList.remove('active'));
+      const mainIdx = idx <= 3 ? idx : 3;
+      if (navLinks[mainIdx]) navLinks[mainIdx].classList.add('active');
+    }
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => { e.preventDefault(); goTo(parseInt(link.dataset.page)); });
+    });
+
+    document.addEventListener('click', e => {
+      // data-goto navigation
+      const gotoBtn = e.target.closest('[data-goto]');
+      if (gotoBtn && !e.target.closest('.select-btn')) {
+        goTo(parseInt(gotoBtn.dataset.goto));
+        return;
+      }
+
+      // Select plan button
+      const selBtn = e.target.closest('.select-btn');
+      if (selBtn) {
+        selectedPlan = selBtn.dataset.plan || '';
+        document.getElementById('brief-plan-label').textContent = 'Selected: ' + selectedPlan;
+        // Reset success state
+        document.getElementById('form-success').style.display = 'none';
+        goTo(7);
+        return;
+      }
+
+      // Color swatches
+      const swatch = e.target.closest('.swatch');
+      if (swatch && swatch.closest('#swatches')) {
+        document.querySelectorAll('.swatch').forEach(s => s.classList.remove('selected'));
+        swatch.classList.add('selected');
+        selectedColor = swatch.dataset.color;
+        document.getElementById('color-label').textContent = 'Selected: ' + selectedColor;
+        return;
+      }
+    });
+
+    // Custom color picker
+    const customInput = document.getElementById('custom-color-input');
+    const customSwatch = document.getElementById('custom-swatch');
+    customInput.addEventListener('input', () => {
+      const hex = customInput.value;
+      customSwatch.style.background = hex;
+      document.getElementById('custom-swatch-icon').style.display = 'none';
+      document.querySelectorAll('.swatch').forEach(s => s.classList.remove('selected'));
+      selectedColor = 'Custom (' + hex + ')';
+      document.getElementById('color-label').textContent = 'Selected: ' + selectedColor;
+    });
+
+    // Submit brief → opens mailto
+    document.getElementById('submit-brief').addEventListener('click', () => {
+      const name    = document.getElementById('f-name').value.trim();
+      const email   = document.getElementById('f-email').value.trim();
+      const brand   = document.getElementById('f-brand').value.trim();
+      const biz     = document.getElementById('f-biz').value.trim();
+      const pref    = document.getElementById('f-pref').value.trim();
+      const color   = selectedColor || 'Not selected';
+
+      if (!name || !email || !brand) {
+        alert('Please fill in your Name, Gmail, and Brand/Business Name before submitting.');
+        return;
+      }
+
+      const subject = encodeURIComponent('Logo Design Brief — ' + brand + ' (' + selectedPlan + ')');
+      const body = encodeURIComponent(
+        'Hello Creato Creative Agency,\n\n' +
+        'Here is my Logo Design Brief:\n\n' +
+        'Name: ' + name + '\n' +
+        'Gmail: ' + email + '\n' +
+        'Brand / Business Name: ' + brand + '\n' +
+        "What's Your Brand/Business: " + biz + '\n' +
+        'Preferences: ' + pref + '\n' +
+        'Preferred Color: ' + color + '\n' +
+        'Selected Package: ' + selectedPlan + '\n\n' +
+        'Looking forward to working with you!\n\n' +
+        name
+      );
+
+      window.location.href = 'mailto:eltonjohnganura@gmail.com?subject=' + subject + '&body=' + body;
+
+      document.getElementById('form-success').style.display = 'block';
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,936 @@
+/* ============================================================
+   CREATO CREATIVE AGENCY — Stylesheet
+   style.css
+   ============================================================
+
+   TABLE OF CONTENTS
+   -----------------
+   1.  Reset & Base
+   2.  Navigation
+   3.  Viewport & Page Slide Strip
+   4.  Back Button
+   5.  Page Eyebrow & Title
+   6.  Utility
+   7.  Home Page
+   8.  About Page
+   9.  Shared Cards
+   10. Service Detail Buttons
+   11. Logo Pricing Tier Cards
+   12. Printables Grid
+   13. Digital Design Grid
+   14. Brief / Contact Form
+   15. Footer
+   16. Responsive Breakpoints
+   ============================================================ */
+
+
+/* ── 1. RESET & BASE ────────────────────────────────────── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: #0a0a0a;
+  background: radial-gradient(ellipse at top left, #b3ffb3 0%, #e6ffe6 30%, #ffffff 65%);
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* ── 2. NAVIGATION ──────────────────────────────────────── */
+nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 24px 60px;
+  gap: 48px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+
+nav a {
+  text-decoration: none;
+  color: #0a0a0a;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: 100;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+nav a:hover {
+  opacity: 0.55;
+}
+
+nav a.active {
+  font-weight: 700;
+}
+
+
+/* ── 3. VIEWPORT & PAGE SLIDE STRIP ────────────────────── */
+/*
+   8 virtual pages slide horizontally inside .viewport.
+   Pages (in order):
+     0 — Home
+     1 — About Us
+     2 — Our Works
+     3 — Services
+     4 — Logo Pricing
+     5 — Printables
+     6 — Digital Design
+     7 — Brief / Contact Form
+*/
+.viewport {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.pages {
+  display: flex;
+  width: 800%;          /* 8 pages × 100% */
+  height: 100%;
+  transition: transform 0.55s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.page {
+  width: calc(100% / 8);
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 60px 0;
+  position: relative;
+  overflow-y: auto;
+}
+
+
+/* ── 4. BACK BUTTON ─────────────────────────────────────── */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  margin-bottom: 24px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.back-btn:hover {
+  opacity: 1;
+}
+
+.back-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+
+/* ── 5. PAGE EYEBROW & TITLE ────────────────────────────── */
+.page-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #00b825;
+  margin-bottom: 10px;
+}
+
+.page-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1.4rem, 2.4vw, 2.2rem);
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 28px;
+}
+
+
+/* ── 6. UTILITY ─────────────────────────────────────────── */
+.price-green {
+  color: #00b825;
+  font-weight: 700;
+}
+
+
+/* ── 7. HOME PAGE ───────────────────────────────────────── */
+.hero-headline {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(2.4rem, 4.8vw, 4.6rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  max-width: 680px;
+  margin-bottom: 44px;
+  margin-top: auto;
+}
+
+.hero-subline {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.3rem, 2.4vw, 2.2rem);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: auto;
+}
+
+.hero-subline .accent {
+  color: #00e633;
+}
+
+.cta-block {
+  position: absolute;
+  bottom: 52px;
+  right: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.cta-label {
+  font-size: 0.88rem;
+  font-weight: 400;
+}
+
+.cta-btn {
+  background: #00e633;
+  color: #0a0a0a;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 999px;
+  padding: 16px 34px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.cta-btn:hover {
+  background: #00cc2a;
+  transform: scale(1.04);
+}
+
+.cta-btn:active {
+  transform: scale(0.98);
+}
+
+
+/* ── 8. ABOUT PAGE ──────────────────────────────────────── */
+.about-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1rem, 1.7vw, 1.3rem);
+  font-weight: 400;
+  line-height: 1.8;
+  max-width: 720px;
+}
+
+/* Accomplishments stats row */
+.stats-row {
+  display: flex;
+  gap: 48px;
+  margin: 52px 0 40px;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-number {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 500;
+  color: #00b825;
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  opacity: 0.65;
+  letter-spacing: 0.04em;
+}
+
+.stat-divider {
+  width: 1px;
+  background: rgba(0, 200, 50, 0.25);
+  align-self: stretch;
+}
+
+/* Closing tagline at the bottom of About */
+.about-tagline {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1rem, 1.7vw, 1.3rem);
+  font-weight: 400;
+  line-height: 1.8;
+  color: #0a0a0a;
+  max-width: 620px;
+  border-top: 2px solid rgba(0, 230, 51, 0.3);
+  padding-top: 32px;
+  margin-bottom: 48px;
+}
+
+
+/* ── 9. SHARED CARDS ────────────────────────────────────── */
+/* Used by Our Works and Services pages */
+.card-grid {
+  display: grid;
+  gap: 16px;
+  padding-bottom: 28px;
+}
+
+.card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.card-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+.card {
+  background: #fff;
+  border: 1.5px solid rgba(0, 230, 51, 0.28);
+  border-radius: 18px;
+  padding: 26px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  box-shadow: 0 3px 18px rgba(0, 230, 51, 0.07);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 28px rgba(0, 230, 51, 0.16);
+}
+
+.card-icon {
+  width: 44px;
+  height: 44px;
+  background: rgba(0, 230, 51, 0.1);
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.card-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: #00a820;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.card-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.card-divider {
+  width: 34px;
+  height: 2px;
+  background: #00e633;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.card-desc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  text-align: center;
+  opacity: 0.55;
+  line-height: 1.6;
+  flex: 1;
+}
+
+
+/* ── 10. SERVICE DETAIL BUTTONS ─────────────────────────── */
+.detail-btn {
+  background: transparent;
+  color: #0a0a0a;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 2px solid #00e633;
+  border-radius: 999px;
+  padding: 8px 20px;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.detail-btn:hover {
+  background: #00e633;
+  transform: scale(1.04);
+}
+
+/* Coming Soon badge (replaces detail btn when service is not ready) */
+.coming-soon {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #aaa;
+  border: 1.5px dashed #ccc;
+  border-radius: 999px;
+  padding: 6px 16px;
+  margin-top: 4px;
+}
+
+
+/* ── 11. LOGO PRICING TIER CARDS ────────────────────────── */
+.tier-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  padding-bottom: 28px;
+}
+
+.tier-card {
+  background: #fff;
+  border: 1.5px solid rgba(0, 230, 51, 0.28);
+  border-radius: 18px;
+  padding: 26px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 3px 18px rgba(0, 230, 51, 0.07);
+}
+
+/* Highlighted "Most Popular" card overrides border in HTML inline style */
+
+.tier-badge {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: #00e633;
+  color: #0a0a0a;
+  border-radius: 999px;
+  padding: 4px 12px;
+  display: inline-block;
+  margin-bottom: 4px;
+  align-self: flex-start;
+}
+
+.tier-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.tier-price {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #00b825;
+  margin-bottom: 10px;
+}
+
+.tier-price span {
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: #0a0a0a;
+  opacity: 0.55;
+}
+
+.tier-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 1;
+}
+
+.tier-list li {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.73rem;
+  font-weight: 400;
+  line-height: 1.4;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.tier-list li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00e633;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+/* Select button on each tier card → goes to Brief Form */
+.select-btn {
+  margin-top: 16px;
+  background: #00e633;
+  color: #0a0a0a;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  align-self: flex-start;
+}
+
+.select-btn:hover {
+  background: #00cc2a;
+  transform: scale(1.03);
+}
+
+
+/* ── 12. PRINTABLES GRID ────────────────────────────────── */
+.print-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  padding-bottom: 28px;
+}
+
+.print-card {
+  background: #fff;
+  border: 1.5px solid rgba(0, 230, 51, 0.28);
+  border-radius: 16px;
+  padding: 22px 14px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 3px 16px rgba(0, 230, 51, 0.07);
+}
+
+.print-card-icon {
+  width: 38px;
+  height: 38px;
+  background: rgba(0, 230, 51, 0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.print-card-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: #00a820;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.print-card-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.print-card-divider {
+  width: 26px;
+  height: 2px;
+  background: #00e633;
+  border-radius: 2px;
+}
+
+.print-price-list {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.print-price-list li {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.69rem;
+  font-weight: 400;
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  line-height: 1.4;
+}
+
+.p-label { opacity: 0.65; }
+.p-val   { color: #00b825; font-weight: 700; white-space: nowrap; }
+
+
+/* ── 13. DIGITAL DESIGN GRID ────────────────────────────── */
+.digital-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  padding-bottom: 28px;
+}
+
+.digital-card {
+  background: #fff;
+  border: 1.5px solid rgba(0, 230, 51, 0.28);
+  border-radius: 18px;
+  padding: 28px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 3px 18px rgba(0, 230, 51, 0.07);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.digital-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 28px rgba(0, 230, 51, 0.16);
+}
+
+.digital-card-icon {
+  width: 46px;
+  height: 46px;
+  background: rgba(0, 230, 51, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.digital-card-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: #00a820;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.digital-card-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.digital-card-divider {
+  width: 36px;
+  height: 2px;
+  background: #00e633;
+  border-radius: 2px;
+}
+
+.digital-price-list {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.digital-price-list li {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.digital-price-list .d-label { opacity: 0.65; }
+.digital-price-list .d-val   { color: #00b825; font-weight: 700; }
+
+
+/* ── 14. BRIEF / CONTACT FORM ───────────────────────────── */
+.form-wrap {
+  max-width: 580px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 48px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-field label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 400;
+  border: 1.5px solid rgba(0, 200, 50, 0.3);
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: #fff;
+  color: #0a0a0a;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+}
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+  border-color: #00e633;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Color swatch picker */
+.color-swatches {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.swatch:hover {
+  transform: scale(1.15);
+}
+
+.swatch.selected {
+  border-color: #0a0a0a;
+}
+
+.swatch-custom {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px dashed #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  background: #f9f9f9;
+  transition: border-color 0.2s;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.swatch-custom input[type="color"] {
+  opacity: 0;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+
+.color-selected-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  opacity: 0.6;
+  margin-top: 4px;
+}
+
+/* Submit button */
+.submit-btn {
+  background: #00e633;
+  color: #0a0a0a;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 999px;
+  padding: 15px 36px;
+  cursor: pointer;
+  align-self: flex-start;
+  margin-top: 6px;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.submit-btn:hover {
+  background: #00cc2a;
+  transform: scale(1.04);
+}
+
+.form-notice {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  opacity: 0.5;
+  margin-top: -6px;
+}
+
+/* Success message after form submission */
+.form-success {
+  display: none;
+  background: rgba(0, 230, 51, 0.1);
+  border: 1.5px solid #00e633;
+  border-radius: 12px;
+  padding: 18px 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+
+/* ── 15. FOOTER ─────────────────────────────────────────── */
+footer {
+  background: #00e633;
+  color: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px 60px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.footer-copy {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  opacity: 0.75;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.footer-link {
+  text-decoration: none;
+  color: #0a0a0a;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.footer-link:hover {
+  opacity: 1;
+}
+
+.footer-link svg {
+  width: 14px;
+  height: 14px;
+}
+
+
+/* ── 16. RESPONSIVE BREAKPOINTS ─────────────────────────── */
+
+/* Tablet landscape / small desktop */
+@media (max-width: 1000px) {
+  .tier-grid    { grid-template-columns: repeat(2, 1fr); }
+  .digital-grid { grid-template-columns: repeat(2, 1fr); }
+  .print-grid   { grid-template-columns: repeat(3, 1fr); }
+  .card-grid-4  { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Tablet portrait / large phone */
+@media (max-width: 760px) {
+  nav {
+    padding: 16px 24px;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .page {
+    padding: 24px 24px 0;
+  }
+
+  footer {
+    padding: 12px 24px;
+  }
+
+  .tier-grid    { grid-template-columns: 1fr; }
+  .digital-grid { grid-template-columns: 1fr; }
+  .print-grid   { grid-template-columns: repeat(2, 1fr); }
+  .card-grid-3,
+  .card-grid-4  { grid-template-columns: repeat(2, 1fr); }
+
+  .cta-block {
+    right: 24px;
+    bottom: 28px;
+  }
+
+  .stats-row { gap: 28px; }
+}
+
+/* Small phone */
+@media (max-width: 480px) {
+  .card-grid-3,
+  .card-grid-4,
+  .print-grid   { grid-template-columns: 1fr; }
+}
